@@ -48,21 +48,31 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   #
   config.vm.provider "virtualbox" do |vb|
   #   # Don't boot with headless mode
-     vb.gui = true
      # vb.name = "Lubuntu Dev Java/Scala"  
   #   # Use VBoxManage to customize the VM. For example to change memory:
      # vb.customize ["modifyvm", :id, "--memory", "4096"]
-     vb.memory = 4096
-     vb.cpus = 4
+     vb.memory = 512
+     vb.cpus = 1
   end
   #
 
-  config.vm.define "web" do |web|
-    web.vm.network :forwarded_port, guest:80, host: 8080
-    web.vm.provision "puppet"
+  config.vm.provision "puppet"
+
+  config.vm.define "desktop" do |desktop|
+    desktop.vm.box = "janihur/ubuntu-1404-desktop"
+    desktop.vm.provider "virtualbox" do |vb|
+      vb.gui = true
+      vb.memory = 1024
+      vb.cpus = 2
+    end
   end
 
-  config.vm.define "db" do |db|
+  config.vm.define "ci" do |ci|
+    ci.vm.network :forwarded_port, guest:80, host: 8080
+    ci.vm.provision "puppet"
+  end
+
+  config.vm.define "qa" do |qa|
     # We'll fill this in soon.
   end
 
