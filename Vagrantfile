@@ -56,9 +56,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
   #
 
-  config.vm.provision "puppet"
+  # config.vm.provision "puppet"
 
   config.vm.define "desktop" do |desktop|
+    desktop.vm.provision "shell", path: "scripts/install_puppet.sh"
+    desktop.vm.provision "puppet" do |puppet|
+      puppet.manifest_file = "desktop.pp"
+    end
     desktop.vm.box = "janihur/ubuntu-1404-desktop"
     desktop.vm.provider "virtualbox" do |vb|
       vb.gui = true
@@ -68,11 +72,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   config.vm.define "ci" do |ci|
+    ci.vm.provision "puppet"
     ci.vm.network :forwarded_port, guest:80, host: 8080
     ci.vm.provision "puppet"
   end
 
   config.vm.define "qa" do |qa|
+    qa.vm.provision "puppet"
     # We'll fill this in soon.
   end
 
