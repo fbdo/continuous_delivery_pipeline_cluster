@@ -59,7 +59,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # config.vm.provision "puppet"
 
   config.vm.define "desktop" do |desktop|
-    desktop.vm.provision "shell", path: "scripts/install_puppet.sh"
+    desktop.vm.provision "shell", path: "scripts/desktop.sh"
     desktop.vm.provision "puppet" do |puppet|
       puppet.manifest_file = "desktop.pp"
     end
