@@ -72,13 +72,21 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   config.vm.define "ci" do |ci|
+    ci.vm.provision "shell", path: "scripts/ci.sh"
     ci.vm.provision "puppet"
     ci.vm.network :forwarded_port, guest:80, host: 8080
     ci.vm.provision "puppet"
   end
 
   config.vm.define "qa" do |qa|
+    qa.vm.provision "shell", path: "scripts/qa.sh"
     qa.vm.provision "puppet"
+    # We'll fill this in soon.
+  end
+
+  config.vm.define "prod" do |prod|
+    prod.vm.provision "shell", path: "scripts/prod.sh"
+    prod.vm.provision "puppet"
     # We'll fill this in soon.
   end
 
