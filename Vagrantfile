@@ -73,8 +73,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.define "ci" do |ci|
     ci.vm.provision "shell", path: "scripts/ci.sh"
-    ci.vm.provision "puppet"
-    ci.vm.network :forwarded_port, guest:80, host: 8080
+    ci.vm.provision "puppet" do |puppet|
+      puppet.manifest_file = "ci.pp"
+    end
+    ci.vm.network :forwarded_port, guest:8080, host: 8080
     ci.vm.provision "puppet"
   end
 

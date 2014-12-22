@@ -10,6 +10,8 @@ sudo apt-get install -y puppet >/dev/null 2>&1
 
 puppet module install puppetlabs-java
 
+puppet module install rtyler/jenkins
+
 # apt-get update >/dev/null 2>&1
 # apt-get install -y apache2 >/dev/null 2>&1
 
