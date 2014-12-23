@@ -10,8 +10,5 @@ sudo apt-get install -y puppet >/dev/null 2>&1
 
 puppet module install puppetlabs-java
 
-# apt-get update >/dev/null 2>&1
-# apt-get install -y apache2 >/dev/null 2>&1
+puppet module install puppetlabs-git
 
-# rm -rf /var/www
-# ln -fs /vagrant /var/www
