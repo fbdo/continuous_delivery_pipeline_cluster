@@ -6,6 +6,10 @@ include jenkins
 
 include git
 
+class { "maven::maven":
+  version => "3.2.2"
+}
+
 user { "git":
   ensure     => "present",
   managehome => true,

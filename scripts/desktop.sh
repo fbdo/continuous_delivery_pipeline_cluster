@@ -12,3 +12,5 @@ puppet module install puppetlabs-java
 
 puppet module install puppetlabs-git
 
+puppet module install maestrodev-maven
+
