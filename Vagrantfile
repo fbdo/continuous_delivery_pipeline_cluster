@@ -63,11 +63,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     desktop.vm.provision "puppet" do |puppet|
       puppet.manifest_file = "desktop.pp"
     end
+    desktop.vm.network "private_network", ip: "192.168.42.10"
     desktop.vm.box = "janihur/ubuntu-1404-desktop"
     desktop.vm.provider "virtualbox" do |vb|
       vb.gui = true
       vb.memory = 1024
       vb.cpus = 2
+      vb.name = "desktop"
     end
   end
 
@@ -76,19 +78,30 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     ci.vm.provision "puppet" do |puppet|
       puppet.manifest_file = "ci.pp"
     end
-    ci.vm.network :forwarded_port, guest:8080, host: 8080
+    ci.vm.network "private_network", ip: "192.168.42.2"
     ci.vm.provision "puppet"
+    ci.vm.provider "virtualbox" do |vb|
+      vb.name = "ci_server"
+    end
   end
 
   config.vm.define "qa" do |qa|
     qa.vm.provision "shell", path: "scripts/qa.sh"
     qa.vm.provision "puppet"
+    qa.vm.network "private_network", ip: "192.168.42.3"
+    qa.vm.provider "virtualbox" do |vb|
+      vb.name = "qa_server"
+    end
     # We'll fill this in soon.
   end
 
   config.vm.define "prod" do |prod|
     prod.vm.provision "shell", path: "scripts/prod.sh"
     prod.vm.provision "puppet"
+    prod.vm.network "private_network", ip: "192.168.42.4"
+    prod.vm.provider "virtualbox" do |vb|
+      vb.name = "prod_server"
+    end
     # We'll fill this in soon.
   end
 
