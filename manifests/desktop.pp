@@ -12,6 +12,10 @@ class { "maven::maven":
   version => "3.2.2"
 }
 
+::eclipse { "eclipse":
+  method => "wget"
+}
+
 #file { "/home/vagrant/myproj":
 #  ensure  => directory,
 #  recurse => true,

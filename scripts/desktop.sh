@@ -14,3 +14,4 @@ puppet module install puppetlabs-git
 
 puppet module install maestrodev-maven
 
+puppet module install runthebusiness-eclipse
